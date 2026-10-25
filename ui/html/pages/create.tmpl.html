@@ -4,18 +4,27 @@
 <form action='/snippet/create' method='POST'>
     <div>
         <label>Title:</label>
-        <input type='text' name='title'>
+        {{with .Form.FieldErrors.title}}
+            <label class='error'>{{.}}</label>
+        {{end}}
+        <input type='text' name='title' value='{{.Form.Title}}'>
     </div>
     <div>
         <label>Content:</label>
-        <textarea name='content'></textarea>
+        {{with .Form.FieldErrors.content}}
+            <label class='error'>{{.}}</label>
+        {{end}}
+        <textarea name='content'>{{.Form.Content}}</textarea>
     </div>
     <div>
         <label>Expires:</label>
+        {{with .Form.FieldErrors.expires}}
+            <label class='error'>{{.}}</label>
+        {{end}}
         <select name='expires'>
-            <option value='1'>1 Day</option>
-            <option value='7'>7 Days</option>
-            <option value='365'>1 Year</option>
+            <option value='1' {{if eq .Form.Expires 1}}selected{{end}}>1 Day</option>
+            <option value='7' {{if eq .Form.Expires 7}}selected{{end}}>7 Days</option>
+            <option value='365' {{if eq .Form.Expires 365}}selected{{end}}>1 Year</option>
         </select>
     </div>
     <div>
